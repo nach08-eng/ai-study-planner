@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+console.log("API BASE:", import.meta.env.VITE_API_BASE_URL);
+const API_BASE = "https://ai-study-planner-bgvf.onrender.com";
 const emptyForm = {
   title: "",
   description: "",
