@@ -1,0 +1,782 @@
+{
+  "users": [
+    {
+      "id": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "name": "Test User",
+      "interests": [
+        "data",
+        "business"
+      ],
+      "strengths": [
+        "logic",
+        "communication"
+      ],
+      "skills": [
+        "Excel"
+      ],
+      "studyTime": 90,
+      "goal": "Become a data analyst",
+      "selectedCareer": "Data Analyst",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "createdAt": "2026-03-28T08:55:36.146Z"
+    },
+    {
+      "id": "cb5b69ab-12e2-4ac7-8c0a-d2b0d076873e",
+      "name": "PG Smoke",
+      "interests": [
+        "data"
+      ],
+      "strengths": [
+        "logic"
+      ],
+      "skills": [
+        "Excel"
+      ],
+      "studyTime": 90,
+      "goal": "Become a data analyst",
+      "selectedCareer": "",
+      "updatedAt": "2026-03-28T09:26:10.377Z",
+      "createdAt": "2026-03-28T09:26:10.377Z"
+    }
+  ],
+  "careers": [
+    {
+      "id": "5ceb6896-610e-4170-91f0-3037255af853",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "title": "Data Analyst",
+      "reason": "It aligns with your data, business and rewards logic, curiosity, communication.",
+      "duration": "8-16 weeks",
+      "createdAt": "2026-03-28T08:55:36.639Z"
+    },
+    {
+      "id": "503b7b23-ea46-420b-96c4-9614859716c2",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "title": "Business Analyst",
+      "reason": "It aligns with your data, business and rewards logic, communication, organization.",
+      "duration": "8-18 weeks",
+      "createdAt": "2026-03-28T08:55:36.639Z"
+    },
+    {
+      "id": "08ea6969-f70c-478f-8027-5f7dd0f98941",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "title": "Product Manager",
+      "reason": "It aligns with your data, business and rewards communication, leadership, strategy.",
+      "duration": "12-24 weeks",
+      "createdAt": "2026-03-28T08:55:36.639Z"
+    }
+  ],
+  "skillGaps": [
+    {
+      "id": "f1d8cdd8-e5e1-4749-b045-f872ca991c2a",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "careerTitle": "Data Analyst",
+      "skillGap": [
+        {
+          "skill": "SQL",
+          "level": "Beginner",
+          "priority": 1,
+          "missing": true
+        },
+        {
+          "skill": "Data Visualization",
+          "level": "Advanced",
+          "priority": 3,
+          "missing": true
+        },
+        {
+          "skill": "Statistics",
+          "level": "Advanced",
+          "priority": 4,
+          "missing": true
+        },
+        {
+          "skill": "Python",
+          "level": "Advanced",
+          "priority": 5,
+          "missing": true
+        },
+        {
+          "skill": "Storytelling",
+          "level": "Advanced",
+          "priority": 6,
+          "missing": true
+        }
+      ],
+      "createdAt": "2026-03-28T08:55:36.959Z"
+    }
+  ],
+  "plans": [
+    {
+      "id": "cfadc2dc-065f-4f93-b052-c015691434e7",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "careerTitle": "Data Analyst",
+      "dailyStudyTime": 90,
+      "days": [
+        {
+          "day": 1,
+          "topic": "Beginner: SQL",
+          "practiceTask": "Practice sql with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around sql",
+          "tasks": [
+            {
+              "id": "6b1a2f66-9ccf-4ad2-af70-85868a5bacad",
+              "day": 1,
+              "order": 0,
+              "text": "Watch or read one focused lesson about SQL",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "e54657af-22ca-43a0-9391-d4e171b119ee",
+              "day": 1,
+              "order": 1,
+              "text": "Complete a hands-on exercise for SQL",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "016e4105-9787-47c1-873b-2a4b0712fb08",
+              "day": 1,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "a8a933b5-1c10-4682-9c37-32e480049770",
+              "day": 1,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 2,
+          "topic": "Beginner: Data Visualization",
+          "practiceTask": "Practice data visualization with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around data visualization",
+          "tasks": [
+            {
+              "id": "744b3d8f-e762-48e5-8810-bc203d0488fd",
+              "day": 2,
+              "order": 0,
+              "text": "Watch or read one focused lesson about Data Visualization",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "9446e527-4594-4677-b6e1-330ffbcc3dae",
+              "day": 2,
+              "order": 1,
+              "text": "Complete a hands-on exercise for Data Visualization",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "715fb7ad-c85d-4dd6-893f-06cdb46661b4",
+              "day": 2,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "4fde4537-6003-43cc-b3da-69c51f794ad9",
+              "day": 2,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 3,
+          "topic": "Beginner: Statistics",
+          "practiceTask": "Practice statistics with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around statistics",
+          "tasks": [
+            {
+              "id": "e38f5994-617b-4a29-89c8-9c60e2ff5dce",
+              "day": 3,
+              "order": 0,
+              "text": "Watch or read one focused lesson about Statistics",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "538ee6e4-e05e-4440-9323-e554b94c9287",
+              "day": 3,
+              "order": 1,
+              "text": "Complete a hands-on exercise for Statistics",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "a229bd0d-c1eb-46cf-9ae0-c2ed7a4d4298",
+              "day": 3,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "52064ced-345a-431a-941f-f709b80dec45",
+              "day": 3,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 4,
+          "topic": "Intermediate: Python",
+          "practiceTask": "Practice python with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around python",
+          "tasks": [
+            {
+              "id": "89a07688-def1-4ba0-9b3f-c2ec93aad16e",
+              "day": 4,
+              "order": 0,
+              "text": "Watch or read one focused lesson about Python",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "4ae632ae-cbf9-41b6-ae03-213e3ba39956",
+              "day": 4,
+              "order": 1,
+              "text": "Complete a hands-on exercise for Python",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "de6778ee-738f-4b0e-9927-5fae5a0e5903",
+              "day": 4,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "06c635a3-a07b-481d-8919-3c7393d5a7c0",
+              "day": 4,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 5,
+          "topic": "Intermediate: Storytelling",
+          "practiceTask": "Practice storytelling with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around storytelling",
+          "tasks": [
+            {
+              "id": "1dddcf21-2efa-4391-8868-0640dd07a8cd",
+              "day": 5,
+              "order": 0,
+              "text": "Watch or read one focused lesson about Storytelling",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "856e3eae-e089-4da3-9bdd-c9ded3f43a05",
+              "day": 5,
+              "order": 1,
+              "text": "Complete a hands-on exercise for Storytelling",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "b3286765-4c60-4d55-b59c-8aa9fb142c05",
+              "day": 5,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "e420102a-4b7e-4b98-a731-383646f66a3a",
+              "day": 5,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 6,
+          "topic": "Intermediate: SQL",
+          "practiceTask": "Practice sql with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around sql",
+          "tasks": [
+            {
+              "id": "9b1bed38-8822-4e04-9036-19d9c0f61d2c",
+              "day": 6,
+              "order": 0,
+              "text": "Watch or read one focused lesson about SQL",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "0995b872-28e3-4d59-a008-12940a6e6a03",
+              "day": 6,
+              "order": 1,
+              "text": "Complete a hands-on exercise for SQL",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "63001508-6e89-483f-a394-36a084b99165",
+              "day": 6,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "7b331a1a-3135-480b-8138-b0e9593296ec",
+              "day": 6,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        },
+        {
+          "day": 7,
+          "topic": "Advanced: Data Visualization",
+          "practiceTask": "Practice data visualization with a guided exercise",
+          "miniProject": "Create a small data analyst-style project around data visualization",
+          "tasks": [
+            {
+              "id": "ebd90329-2ae8-4a00-849a-64eafc7786f7",
+              "day": 7,
+              "order": 0,
+              "text": "Watch or read one focused lesson about Data Visualization",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "dbbdf44f-b78f-480d-bc12-9c1e81dc2a7a",
+              "day": 7,
+              "order": 1,
+              "text": "Complete a hands-on exercise for Data Visualization",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "feb855c3-ee21-4355-9b54-a6d05b83eab3",
+              "day": 7,
+              "order": 2,
+              "text": "Review what you learned and summarize the key points",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            },
+            {
+              "id": "461afeba-7ae5-48d2-a5c6-d8dcf9af43b2",
+              "day": 7,
+              "order": 3,
+              "text": "Build a mini project step around Data Analyst",
+              "completed": false,
+              "completedAt": null,
+              "createdAt": "2026-03-28T08:55:37.296Z",
+              "updatedAt": "2026-03-28T08:55:37.296Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "6b1a2f66-9ccf-4ad2-af70-85868a5bacad",
+      "day": 1,
+      "order": 0,
+      "text": "Watch or read one focused lesson about SQL",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "e54657af-22ca-43a0-9391-d4e171b119ee",
+      "day": 1,
+      "order": 1,
+      "text": "Complete a hands-on exercise for SQL",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "016e4105-9787-47c1-873b-2a4b0712fb08",
+      "day": 1,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "a8a933b5-1c10-4682-9c37-32e480049770",
+      "day": 1,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "744b3d8f-e762-48e5-8810-bc203d0488fd",
+      "day": 2,
+      "order": 0,
+      "text": "Watch or read one focused lesson about Data Visualization",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "9446e527-4594-4677-b6e1-330ffbcc3dae",
+      "day": 2,
+      "order": 1,
+      "text": "Complete a hands-on exercise for Data Visualization",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "715fb7ad-c85d-4dd6-893f-06cdb46661b4",
+      "day": 2,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "4fde4537-6003-43cc-b3da-69c51f794ad9",
+      "day": 2,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "e38f5994-617b-4a29-89c8-9c60e2ff5dce",
+      "day": 3,
+      "order": 0,
+      "text": "Watch or read one focused lesson about Statistics",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "538ee6e4-e05e-4440-9323-e554b94c9287",
+      "day": 3,
+      "order": 1,
+      "text": "Complete a hands-on exercise for Statistics",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "a229bd0d-c1eb-46cf-9ae0-c2ed7a4d4298",
+      "day": 3,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "52064ced-345a-431a-941f-f709b80dec45",
+      "day": 3,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "89a07688-def1-4ba0-9b3f-c2ec93aad16e",
+      "day": 4,
+      "order": 0,
+      "text": "Watch or read one focused lesson about Python",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "4ae632ae-cbf9-41b6-ae03-213e3ba39956",
+      "day": 4,
+      "order": 1,
+      "text": "Complete a hands-on exercise for Python",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "de6778ee-738f-4b0e-9927-5fae5a0e5903",
+      "day": 4,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "06c635a3-a07b-481d-8919-3c7393d5a7c0",
+      "day": 4,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "1dddcf21-2efa-4391-8868-0640dd07a8cd",
+      "day": 5,
+      "order": 0,
+      "text": "Watch or read one focused lesson about Storytelling",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "856e3eae-e089-4da3-9bdd-c9ded3f43a05",
+      "day": 5,
+      "order": 1,
+      "text": "Complete a hands-on exercise for Storytelling",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "b3286765-4c60-4d55-b59c-8aa9fb142c05",
+      "day": 5,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "e420102a-4b7e-4b98-a731-383646f66a3a",
+      "day": 5,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "9b1bed38-8822-4e04-9036-19d9c0f61d2c",
+      "day": 6,
+      "order": 0,
+      "text": "Watch or read one focused lesson about SQL",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "0995b872-28e3-4d59-a008-12940a6e6a03",
+      "day": 6,
+      "order": 1,
+      "text": "Complete a hands-on exercise for SQL",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "63001508-6e89-483f-a394-36a084b99165",
+      "day": 6,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "7b331a1a-3135-480b-8138-b0e9593296ec",
+      "day": 6,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "ebd90329-2ae8-4a00-849a-64eafc7786f7",
+      "day": 7,
+      "order": 0,
+      "text": "Watch or read one focused lesson about Data Visualization",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "dbbdf44f-b78f-480d-bc12-9c1e81dc2a7a",
+      "day": 7,
+      "order": 1,
+      "text": "Complete a hands-on exercise for Data Visualization",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "feb855c3-ee21-4355-9b54-a6d05b83eab3",
+      "day": 7,
+      "order": 2,
+      "text": "Review what you learned and summarize the key points",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    },
+    {
+      "id": "461afeba-7ae5-48d2-a5c6-d8dcf9af43b2",
+      "day": 7,
+      "order": 3,
+      "text": "Build a mini project step around Data Analyst",
+      "completed": false,
+      "completedAt": null,
+      "createdAt": "2026-03-28T08:55:37.296Z",
+      "updatedAt": "2026-03-28T08:55:37.296Z",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58"
+    }
+  ],
+  "chats": [
+    {
+      "id": "2ef31871-e346-4024-b61b-b1f11a4bf9ca",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "role": "user",
+      "content": "What should I study today?",
+      "createdAt": "2026-03-28T08:55:37.323Z"
+    },
+    {
+      "id": "d818070e-efd5-48ef-a8f3-72322369f08e",
+      "userId": "31d845dd-8550-43c7-ad0f-5870ebd1bd58",
+      "role": "assistant",
+      "content": "Focus on 4 key tasks today for Data Analyst. Keep the first block simple, then finish with a short reflection.",
+      "createdAt": "2026-03-28T08:55:37.622Z"
+    }
+  ]
+}
