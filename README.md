@@ -64,7 +64,8 @@ Create `backend/.env` from `.env.example` and set:
 - `OPENAI_API_KEY`
 - `OPENAI_MODEL` if you want to override the default model
 
-The backend runs on `http://localhost:5000`.
+The backend runs locally on `http://localhost:5000`.
+The deployed backend is `https://ai-study-planner-bgvf.onrender.com`.
 
 ### Frontend
 
@@ -74,7 +75,8 @@ npm install
 npm run dev
 ```
 
-The frontend runs on `http://localhost:5173`.
+The frontend runs locally on `http://localhost:5173`.
+The deployed frontend is `https://ai-study-planner-drab.vercel.app/`.
 
 Set `VITE_GOOGLE_CLIENT_ID` in `frontend/.env` to the same Google OAuth client ID.
 
@@ -84,7 +86,7 @@ Set `VITE_GOOGLE_CLIENT_ID` in `frontend/.env` to the same Google OAuth client I
 
 ```env
 PORT=5000
-CLIENT_ORIGIN=http://localhost:5173
+CLIENT_ORIGIN=https://ai-study-planner-drab.vercel.app
 GOOGLE_CLIENT_ID=your_google_client_id
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ai_career_guidance
 DATABASE_SSL=false
