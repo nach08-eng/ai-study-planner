@@ -12,7 +12,11 @@ const createApp = () => {
 
   app.use(
     cors({
-      origin: process.env.CLIENT_ORIGIN || "http://localhost:5173"
+      origin: [
+    "http://localhost:5173",
+    "https://ai-study-planner-drab.vercel.app"
+  ],
+  credentials: true
     })
   );
   app.use(express.json({ limit: "1mb" }));
