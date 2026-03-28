@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 const nav = ["dashboard", "planner", "progress", "chat"];
 const hints = {
   interests: ["tech", "design", "business", "data", "marketing"],
@@ -30,6 +31,7 @@ const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
 export default function CareerApp() {
   const [theme, setTheme] = useState(() => lsGet("acd-theme", "dark"));
   const [userId, setUserId] = useState(() => lsGet("acd-user-id", ""));
+  const [authMode, setAuthMode] = useState(() => lsGet("acd-auth-mode", "local"));
   const [ws, setWs] = useState(null);
   const [view, setView] = useState("dashboard");
   const [loading, setLoading] = useState(false);
@@ -40,6 +42,8 @@ export default function CareerApp() {
   const [career, setCareer] = useState("");
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
+  const googleButtonRef = useRef(null);
+  const googleInitializedRef = useRef(false);
 
   useEffect(() => { document.documentElement.dataset.theme = theme; lsSet("acd-theme", theme); }, [theme]);
   useEffect(() => { if (!userId) return; (async () => {
@@ -47,6 +51,94 @@ export default function CareerApp() {
     catch (e) { setError(e.message); setUserId(""); lsSet("acd-user-id", ""); }
     finally { setLoading(false); }
   })(); }, [userId]);
+  useEffect(() => {
+    if (userId || !GOOGLE_CLIENT_ID || !googleButtonRef.current) {
+      return;
+    }
+
+    const renderGoogleButton = () => {
+      if (!window.google || !googleButtonRef.current) {
+        return;
+      }
+
+      googleButtonRef.current.innerHTML = "";
+      if (!googleInitializedRef.current) {
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: async ({ credential }) => {
+            try {
+              setLoading(true);
+              setError("");
+              const result = await api("/auth/google", {
+                method: "POST",
+                body: { credential }
+              });
+
+              setUserId(result.user.id);
+              setAuthMode("google");
+              lsSet("acd-user-id", result.user.id);
+              lsSet("acd-auth-mode", "google");
+              setForm((prev) => ({
+                ...prev,
+                id: result.user.id,
+                name: result.user.name || prev.name,
+                interests: result.user.interests?.length ? result.user.interests : prev.interests,
+                strengths: result.user.strengths?.length ? result.user.strengths : prev.strengths,
+                skills: result.user.skills?.length ? result.user.skills : prev.skills,
+                studyTime: result.user.studyTime || prev.studyTime,
+                goal: result.user.goal || prev.goal
+              }));
+
+              if (result.onboarded) {
+                setWs(result.dashboard);
+                setCareer(
+                  result.dashboard?.plan?.careerTitle ||
+                    result.dashboard?.profile?.selectedCareer ||
+                    result.dashboard?.careers?.[0]?.title ||
+                    ""
+                );
+                setMsg("Signed in with Google.");
+              } else {
+                setWs(null);
+                setStep(0);
+                setMsg("Google sign-in complete. Finish onboarding to personalize your plan.");
+              }
+            } catch (error) {
+              setError(error.message);
+            } finally {
+              setLoading(false);
+            }
+          }
+        });
+        googleInitializedRef.current = true;
+      }
+
+      window.google.accounts.id.renderButton(googleButtonRef.current, {
+        theme: theme === "light" ? "outline" : "filled_black",
+        size: "large",
+        text: "continue_with",
+        width: 280
+      });
+    };
+
+    if (window.google) {
+      renderGoogleButton();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = renderGoogleButton;
+    document.body.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, [theme, userId]);
 
   const profile = ws?.profile;
   const careers = ws?.careers || [];
@@ -60,7 +152,7 @@ export default function CareerApp() {
   const saveOnboarding = async (e) => {
     e.preventDefault(); setError(""); setLoading(true);
     try {
-      const r = await api("/onboarding", { method: "POST", body: form });
+      const r = await api("/onboarding", { method: "POST", body: { ...form, id: userId || form.id } });
       setUserId(r.user.id); lsSet("acd-user-id", r.user.id); setWs(r.dashboard);
       const c = await api("/generate-careers", { method: "POST", body: { userId: r.user.id, profile: r.user } });
       setWs((p) => ({ ...(p || {}), careers: c.careers })); if (c.careers?.[0]) await chooseCareer(c.careers[0].title, r.user.id, true);
@@ -95,21 +187,42 @@ export default function CareerApp() {
     catch (e) { setError(e.message); }
   };
 
-  const reset = async () => { try { await api(`/users/${userId}/reset`, { method: "POST" }); setUserId(""); lsSet("acd-user-id", ""); setWs(null); setCareer(""); } catch (e) { setError(e.message); } };
+  const goHome = () => {
+    setView("dashboard");
+    setStep(0);
+  };
 
-  if (!userId || !ws) return <Onboarding form={form} setForm={setForm} step={step} setStep={setStep} save={saveOnboarding} loading={loading} error={error} msg={msg} theme={theme} setTheme={setTheme} />;
+  const signOut = () => {
+    setUserId("");
+    setAuthMode("local");
+    setWs(null);
+    setCareer("");
+    setChat("");
+    setText("");
+    setForm(emptyForm);
+    lsSet("acd-user-id", "");
+    lsSet("acd-auth-mode", "local");
+    if (window.google?.accounts?.id) {
+      window.google.accounts.id.disableAutoSelect();
+    }
+  };
+
+  const reset = async () => { try { await api(`/users/${userId}/reset`, { method: "POST" }); setWs(null); setCareer(""); setView("dashboard"); } catch (e) { setError(e.message); } };
+
+  if (!userId || !ws) return <Onboarding form={form} setForm={setForm} step={step} setStep={setStep} save={saveOnboarding} loading={loading} error={error} msg={msg} theme={theme} setTheme={setTheme} googleButtonRef={googleButtonRef} showGoogle={Boolean(GOOGLE_CLIENT_ID)} goHome={goHome} signedInGoogle={authMode === "google" && Boolean(userId)} />;
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,.18),_transparent_28%),linear-gradient(180deg,_#07111f,_#04070f)] text-slate-100">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col xl:flex-row">
         <aside className="border-b border-white/10 bg-slate-950/70 p-4 backdrop-blur-xl xl:w-[280px] xl:border-b-0 xl:border-r">
-          <div className="flex items-center justify-between"><div><p className="text-[10px] uppercase tracking-[.4em] text-sky-300">AI Mentor</p><h1 className="mt-2 text-xl font-semibold">Planner</h1></div><button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[.3em]">{theme}</button></div>
+          <div className="flex items-center justify-between gap-3"><HomeIconButton onClick={goHome} /><div className="flex-1 text-right"><p className="text-[10px] uppercase tracking-[.4em] text-sky-300">AI Mentor</p><h1 className="mt-2 text-xl font-semibold">Planner</h1></div><button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[.3em]">{theme}</button></div>
           <div className="mt-5 rounded-3xl border border-white/10 bg-white/5 p-4"><p className="text-sm text-slate-300">{profile?.name || "Anonymous Learner"}</p><h2 className="mt-1 text-lg font-semibold">{selectedCareer || "Select a career"}</h2><p className="mt-1 text-sm text-slate-400">{note}</p><div className="mt-4 h-2 rounded-full bg-white/10"><div className="h-2 rounded-full bg-gradient-to-r from-sky-400 to-emerald-400" style={{ width: `${progress.completionPercentage}%` }} /></div></div>
           <div className="mt-5 grid gap-2">{nav.map((n) => <button key={n} onClick={() => setView(n)} className={`rounded-2xl px-4 py-3 text-left text-sm ${view === n ? "bg-white text-slate-950" : "border border-white/10 bg-white/5 hover:bg-white/10"}`}>{n[0].toUpperCase() + n.slice(1)}</button>)}</div>
           <button onClick={reset} className="mt-5 w-full rounded-2xl border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-sm">Reset workspace</button>
+          <button onClick={signOut} className="mt-3 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm">Sign out</button>
         </aside>
         <main className="flex-1 p-4 pb-10 xl:p-6">
-          <header className="mb-5 rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl"><div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"><div><p className="text-xs uppercase tracking-[.4em] text-sky-300">Adaptive dashboard</p><h2 className="mt-2 text-2xl font-semibold md:text-4xl">{selectedCareer || "AI Career Guidance & Adaptive Study Planner"}</h2><p className="mt-2 text-sm text-slate-300">{note}</p></div><div className="flex flex-wrap gap-3"><button onClick={() => setView("dashboard")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">Dashboard</button><button onClick={() => chooseCareer(careers[0]?.title || selectedCareer)} className="rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 px-4 py-3 text-sm font-semibold text-white">Rebuild plan</button></div></div></header>
+          <header className="mb-5 rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl"><div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"><div className="flex items-start gap-3"><HomeIconButton onClick={goHome} /><div><p className="text-xs uppercase tracking-[.4em] text-sky-300">Adaptive dashboard</p><h2 className="mt-2 text-2xl font-semibold md:text-4xl">{selectedCareer || "AI Career Guidance & Adaptive Study Planner"}</h2><p className="mt-2 text-sm text-slate-300">{note}</p></div></div><div className="flex flex-wrap gap-3"><button onClick={goHome} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">Home</button><button onClick={() => chooseCareer(careers[0]?.title || selectedCareer)} className="rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 px-4 py-3 text-sm font-semibold text-white">Rebuild plan</button></div></div></header>
           {msg ? <div className="mb-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">{msg}</div> : null}
           {error ? <div className="mb-4 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">{error}</div> : null}
           {view === "dashboard" && <Dashboard careers={careers} selected={selectedCareer} choose={chooseCareer} profile={profile} progress={progress} today={today} skillGap={skillGap} onGenerate={() => chooseCareer(careers[0]?.title || selectedCareer)} />}
@@ -122,15 +235,17 @@ export default function CareerApp() {
   );
 }
 
-function Onboarding({ form, setForm, step, setStep, save, loading, error, msg, theme, setTheme }) {
+function Onboarding({ form, setForm, step, setStep, save, loading, error, msg, theme, setTheme, googleButtonRef, showGoogle, goHome, signedInGoogle }) {
   const canNext = (step === 0 && form.name.trim()) || (step === 1 && form.interests.length) || (step === 2 && form.skills.length);
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,.24),_transparent_30%),linear-gradient(180deg,_#07111f,_#04070f)] px-4 py-6 text-slate-100">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 flex items-center justify-between"><div><p className="text-xs uppercase tracking-[.4em] text-sky-300">AI Mentor</p><h1 className="mt-2 text-3xl font-semibold md:text-5xl">AI Career Guidance & Adaptive Study Planner</h1></div><button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[.3em]">{theme}</button></div>
+        <div className="mb-6 flex items-center justify-between gap-4"><div className="flex items-center gap-3"><HomeIconButton onClick={goHome} /><div><p className="text-xs uppercase tracking-[.4em] text-sky-300">AI Mentor</p><h1 className="mt-2 text-3xl font-semibold md:text-5xl">AI Career Guidance & Adaptive Study Planner</h1></div></div><button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-[.3em]">{theme}</button></div>
         <form onSubmit={save} className="grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-8">
             <div className="flex items-center justify-between"><div><p className="text-sm uppercase tracking-[.35em] text-emerald-300">Step {step + 1} of 3</p><h2 className="mt-2 text-2xl font-semibold">{["Basics","Strengths","Skills"][step]}</h2></div><span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs">1-2 hours/day</span></div>
+            {!signedInGoogle && showGoogle ? <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4"><p className="text-sm text-slate-300">Continue with Google</p><div ref={googleButtonRef} className="mt-3 min-h-[46px]" /></div> : null}
+            {signedInGoogle ? <div className="mt-6 rounded-3xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-100">Signed in with Google. Finish onboarding to personalize your roadmap.</div> : null}
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {step === 0 && <>
                 <Field label="Name" value={form.name} onChange={(v) => setForm((p) => ({ ...p, name: v }))} placeholder="Your name" />
@@ -189,6 +304,24 @@ function Progress({ progress, plan }) {
 function Chat({ selected, progress, today, chat, transcript, input, setInput, sendChat }) {
   const list = chat.length ? chat : transcript.split("\n").filter(Boolean).map((line) => ({ role: line.startsWith("You:") ? "user" : "assistant", content: line.replace(/^You:\s?/, "").replace(/^Mentor:\s?/, "") }));
   return <div className="grid gap-5 xl:grid-cols-[.9fr_1.1fr]"><Shell title="Mentor context"><p className="text-sm text-slate-300">Career: {selected || "Not selected"}</p><p className="mt-2 text-sm text-slate-300">Completion: {progress.completionPercentage}%</p><p className="mt-2 text-sm text-slate-300">Today's tasks: {today.length}</p><p className="mt-4 text-sm text-slate-400">Try asking what to study today, how to learn SQL joins, or whether you are ready for interviews.</p></Shell><Shell title="Chat"><div className="flex h-[520px] flex-col"><div className="flex-1 space-y-3 overflow-y-auto pr-2">{list.length ? list.map((m, i) => <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}><div className={`max-w-[85%] rounded-[24px] px-4 py-3 text-sm leading-6 ${m.role === "user" ? "bg-gradient-to-r from-sky-500 to-emerald-500 text-white" : "border border-white/10 bg-white/5 text-slate-100"}`}>{m.content}</div></div>) : <div className="rounded-3xl border border-dashed border-white/10 bg-white/5 p-6 text-sm text-slate-400">Start a conversation with your mentor.</div>}</div><form onSubmit={sendChat} className="mt-4 flex gap-3"><input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask a question..." className="flex-1 rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm outline-none" /><button type="submit" className="rounded-2xl bg-gradient-to-r from-sky-500 to-emerald-500 px-5 py-3 text-sm font-semibold text-white">Send</button></form></div></Shell></div>;
+}
+
+function HomeIconButton({ onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10"
+      title="Home"
+      aria-label="Home"
+    >
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 10.5 12 3l9 7.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 9.75V21h13.5V9.75" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 21v-6h4v6" />
+      </svg>
+    </button>
+  );
 }
 
 const Metric = ({ label, value }) => <div className="rounded-[24px] border border-white/10 bg-white/5 p-5"><p className="text-sm text-slate-300">{label}</p><p className="mt-3 text-3xl font-semibold text-white">{value}</p></div>;

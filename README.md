@@ -60,6 +60,7 @@ npm run dev
 Create `backend/.env` from `.env.example` and set:
 
 - `DATABASE_URL`
+- `GOOGLE_CLIENT_ID`
 - `OPENAI_API_KEY`
 - `OPENAI_MODEL` if you want to override the default model
 
@@ -75,6 +76,8 @@ npm run dev
 
 The frontend runs on `http://localhost:5173`.
 
+Set `VITE_GOOGLE_CLIENT_ID` in `frontend/.env` to the same Google OAuth client ID.
+
 ## Environment
 
 ### `backend/.env.example`
@@ -82,6 +85,7 @@ The frontend runs on `http://localhost:5173`.
 ```env
 PORT=5000
 CLIENT_ORIGIN=http://localhost:5173
+GOOGLE_CLIENT_ID=your_google_client_id
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ai_career_guidance
 DATABASE_SSL=false
 DATABASE_SSL_REJECT_UNAUTHORIZED=true
