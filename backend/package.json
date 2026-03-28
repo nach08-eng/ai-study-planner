@@ -1,12 +1,14 @@
 {
   "name": "ai-career-guidance-backend",
   "version": "1.0.0",
+  "license":"Apache-2.0",
   "description": "Backend for the AI Career Guidance & Adaptive Study Planner",
   "main": "src/server.js",
   "scripts": {
-  "start": "node src/server.js",
-  "build": "echo 'No build step needed'"
-},
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "echo \"No build step needed\""
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
